@@ -1,0 +1,16 @@
+BODY { background: #f3e716; padding: 50px;}
+H1, H2, H3 {color: #910500; font-family: sans-serif;}
+#mypic {width: 200px;}
+
+#introduction h2 {
+  font-style: italic;
+}
+
+#introduction p {
+  font-size: 120%;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+}

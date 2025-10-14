@@ -1,0 +1,129 @@
+/* Set the mood with an immersive background on the body */
+:root{
+  --bg1: #0a0f1f;   /* deep space blue */
+  --bg2: #1a2a4f;   /* cooler blue */
+  --accent: #9adfff;
+  --text: #e8f3ff;
+  --muted: #b7c4d6;
+
+  --bar-h: 110px;
+
+  
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+
+  /* ✨ Mood-setting background with optional image */
+  background:
+    /* overlay gradient to tint your image */
+    linear-gradient(160deg, rgba(10,15,31,0.9), rgba(26,42,79,0.6)),
+    url("background.JPG") center center / cover no-repeat fixed;
+
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 900px;
+  margin: calc(var(--bar-h) + 2rem) auto calc(var(--bar-h) + 2rem);
+  padding: 0 1.25rem;
+}
+
+h1 {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 1.1rem + 2.5vw, 3rem);
+  margin: 0 0 0.5rem;
+}
+
+.intro {
+  line-height: 1.7;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 0 2rem;
+}
+
+.character {
+  margin-top: 2rem;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+/* Masks */
+#masks {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;   /* try: space-between | center */
+  padding: 0.5rem 1rem;
+  pointer-events: none;  /* clouds are decorative; allow clicking through */
+  /* Optionally tint */
+  background: linear-gradient(to bottom, rgba(10,15,31,0.4), rgba(10,15,31,0));
+}
+
+/* Moon */
+#moon {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--bar-h);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;   /* try: space-around | center */
+  padding: 0.25rem 1rem 0.5rem;
+  background: linear-gradient(to top, rgba(10,15,31,0.35), rgba(10,15,31,0));
+}
+
+#moon1 {
+  position: relative;                 /* 保持在 #moon 内部 */
+  left: 0;                            /* 从左侧起步 */
+  animation: moon-drift 120s linear infinite alternate;
+  will-change: transform;
+}
+
+@keyframes moon-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(40vw); } /* 漂到视口宽度的 40% */
+}
+
+/* Mask sizes */
+#masksA { width: clamp(90px, 14vw, 180px); }
+#masksB { width: clamp(120px, 18vw, 240px); }
+
+/* Moon sizes & alignment */
+#moon1  { width: clamp(90px, 14vw, 170px); }
+
+/* Your first object image */
+.character img {
+  width: min(55vw, 360px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(154,223,255,0.25))
+          drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+  border-radius: 14px;
+}
+
+/* Optional caption */
+.character figcaption {
+  color: var(--accent);
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Nice on small screens too */
+@media (max-width: 480px) {
+  :root { --bar-h: 90px; }
+  .container { margin: calc(var(--bar-h) + 1.25rem) auto calc(var(--bar-h) + 1.25rem); }
+}
