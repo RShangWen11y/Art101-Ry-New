@@ -1,0 +1,77 @@
+:root{
+  --bg1: #0a0f1f;   /* deep space blue */
+  --bg2: #1a2a4f;   /* cooler blue */
+  --accent: #9adfff;
+  --text: #e8f3ff;
+  --muted: #b7c4d6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+
+  background:
+    linear-gradient(160deg, rgba(10,15,31,0.9), rgba(26,42,79,0.6)),
+    url("background.JPG") center center / cover no-repeat fixed;
+
+  background-attachment: fixed;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 6rem auto;
+  padding: 0 1.25rem;
+}
+
+h1 {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 1.1rem + 2.5vw, 3rem);
+  margin: 0 0 0.5rem;
+}
+
+.intro {
+  line-height: 1.7;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 0 2rem;
+}
+
+.character {
+  margin-top: 2rem;
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+/* Your first object image */
+.character img {
+  width: min(55vw, 360px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(154,223,255,0.25))
+          drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+  border-radius: 14px;
+}
+
+/* Optional caption */
+.character figcaption {
+  color: var(--accent);
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Nice on small screens too */
+@media (max-width: 480px) {
+  .container { margin: 3rem auto; }
+}
