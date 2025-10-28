@@ -1,9 +1,14 @@
-:root{
+/* 🌙 Ave Mujica Environment (env03.css)
+   基于 env02.css 调整，修复贴图布局 + 增加动画与视觉特效
+*/
+
+:root {
   --bg1: #0a0f1f;   /* deep space blue */
   --bg2: #1a2a4f;   /* cooler blue */
   --accent: #9adfff;
   --text: #e8f3ff;
   --muted: #b7c4d6;
+  --bar-h: 110px;
 }
 
 * { box-sizing: border-box; }
@@ -16,18 +21,18 @@ html, body {
 body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
-
   background:
     linear-gradient(160deg, rgba(10,15,31,0.9), rgba(26,42,79,0.6)),
     url("background.JPG") center center / cover no-repeat fixed;
-
   background-attachment: fixed;
 }
 
-
+/* ------------------------------ */
+/*          Layout Base           */
+/* ------------------------------ */
 .container {
-  max-width: 800px;
-  margin: 6rem auto;
+  max-width: 900px;
+  margin: calc(var(--bar-h) + 2rem) auto calc(var(--bar-h) + 2rem);
   padding: 0 1.25rem;
 }
 
@@ -46,6 +51,9 @@ h1 {
   margin: 0 0 2rem;
 }
 
+/* ------------------------------ */
+/*          Character             */
+/* ------------------------------ */
 .character {
   margin-top: 2rem;
   display: grid;
@@ -54,7 +62,6 @@ h1 {
   text-align: center;
 }
 
-/* Your first object image */
 .character img {
   width: min(55vw, 360px);
   height: auto;
@@ -64,14 +71,93 @@ h1 {
   border-radius: 14px;
 }
 
-/* Optional caption */
 .character figcaption {
   color: var(--accent);
   font-size: 0.95rem;
   opacity: 0.9;
 }
 
-/* Nice on small screens too */
+/* ------------------------------ */
+/*            Masks               */
+/* ------------------------------ */
+#masks {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10,15,31,0.4), rgba(10,15,31,0));
+}
+
+#masksA { width: clamp(90px, 14vw, 180px); }
+#masksB { width: clamp(120px, 18vw, 240px); }
+
+/* ------------------------------ */
+/*             Moon               */
+/* ------------------------------ */
+#moon {
+  position: fixed;
+  bottom: 0;
+  right: 0;                  /* ✅ 从左改成右对齐 */
+  height: var(--bar-h);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end; /* ✅ 保证贴右下角 */
+  padding: 0.25rem 1rem 0.5rem;
+  background: linear-gradient(to top, rgba(10,15,31,0.35), rgba(10,15,31,0));
+}
+
+#moon1 {
+  position: relative;
+  width: clamp(90px, 14vw, 170px);
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(200,200,255,0.6));
+  animation: moonFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes moonFloat {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-10px); }
+}
+
+/* ------------------------------ */
+/*         Dynamic Output         */
+/* ------------------------------ */
+#output {
+  margin-top: 2rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* 深紫 ↔ 蓝闪动效果 */
+#output h2,
+#output h3,
+#output p,
+#output li {
+  animation: colorShift 6s ease-in-out infinite alternate;
+  text-shadow: 0 0 10px rgba(160,130,255,0.6);
+}
+
+@keyframes colorShift {
+  0% { color: #a98cff; }
+  50% { color: #7ea9ff; }
+  100% { color: #a98cff; }
+}
+
+/* ------------------------------ */
+/*     Mobile Responsiveness      */
+/* ------------------------------ */
 @media (max-width: 480px) {
-  .container { margin: 3rem auto; }
+  :root { --bar-h: 90px; }
+  .container {
+    margin: calc(var(--bar-h) + 1.25rem) auto calc(var(--bar-h) + 1.25rem);
+  }
 }
