@@ -8,7 +8,6 @@ function askNumber(whatNumber) {
   }
 }
 
-// ✅ 放在函数外部
 $("#good-button").click(function () {
-  askNumber(5); // 这里你可以改成其他数字，比如 askNumber(7)
+  askNumber(5); 
 });
