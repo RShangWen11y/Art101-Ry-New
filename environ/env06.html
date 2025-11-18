@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>env06 — Ave Mujica</title>
+  <link rel="stylesheet" href="env06.css" />
+</head>
+<body>
+    <nav id="masks">
+    <img id="masksA" src="mask1.jpg" alt="Mask A" />
+    <img id="masksB" src="nymu-mask.png" alt="Nymu Mask" />
+    </nav>
+
+
+  <main class="container">
+    <header>
+      <h1>Ave Mujica</h1>
+      <p class="intro">
+        She will strive to face her passion with all her might......
+      </p>
+    </header>
+
+    <section class="character">
+      <img src="character.JPG" alt="Nymu" />
+      <figcaption>This is Nymu</figcaption>
+    </section>
+
+    <!-- 🎥 Nymu 的魔法 WEBM 动画区域（活动范围大约 380px × 380px，在 CSS 里控制） -->
+    <section id="nym-area">
+      <video
+        id="nym-magic-base-Move"
+        src="nym-magic-base-Move.webm"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+
+       <!-- 点击后播放的互动动画（注意文件名不要有空格，建议这样命名 nym-base-Interact-x1.webm） -->
+        <video
+        id="nym-base-Interact-x1"
+        src="nym-base-Interact-x1.webm"
+        muted
+        playsinline
+      ></video>
+</section>
+    </section>
+
+  </main>
+
+  <footer id="moon">
+    <img id="moon1" src="moon1.jpg" alt="moon 1" />
+  </footer>
+
+  <!-- jQuery（后面鼠标跟随要用） -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- 你自己的 JS，等会我们在这里写鼠标移动逻辑 -->
+  <script src="env06.js" defer></script>
+</body>
+</html>
