@@ -1,5 +1,4 @@
-/* ===== env05.css ===== */
-:root{
+:root {
   --bg1: #0a0f1f;
   --bg2: #1a2a4f;
   --accent: #9adfff;
@@ -9,28 +8,30 @@
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   color: var(--text);
-  background:
-    linear-gradient(160deg, rgba(10,15,31,0.9), rgba(26,42,79,0.6)),
-    url("background.JPG") center center / cover no-repeat fixed;
-  background-attachment: fixed;
+  background: linear-gradient(160deg, rgba(10,15,31,0.9), rgba(26,42,79,0.6)),
+              url("background.JPG") center/cover no-repeat fixed;
 }
 
 .container {
   max-width: 900px;
-  margin: calc(var(--bar-h) + 2rem) auto calc(var(--bar-h) + 2rem);
-  padding: 0 1.25rem;
+  margin: calc(var(--bar-h) + 1.5rem) auto;
+  padding: 0 1rem;
 }
 
 h1 {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: clamp(1.8rem, 1.1rem + 2.5vw, 3rem);
+  font-size: clamp(1.8rem, 2.5vw, 3rem);
   margin: 0 0 0.5rem;
 }
 
@@ -41,113 +42,138 @@ h1 {
   margin: 0 0 2rem;
 }
 
-/* ===== Character ===== */
+/* 角色区域样式 */
 .character {
-  margin-top: 2rem;
-  display: grid;
-  place-items: center;
-  gap: 0.5rem;
-  text-align: center;
+  margin-top: 1.5rem;
+  text-align: center; /* 角色图片居中 */
 }
+
 .character img {
   width: min(55vw, 360px);
   height: auto;
   display: block;
+  margin: 0 auto;
+  border-radius: 14px;
   filter: drop-shadow(0 12px 28px rgba(154,223,255,0.25))
           drop-shadow(0 2px 8px rgba(0,0,0,0.45));
-  border-radius: 14px;
 }
+
 .character figcaption {
   color: var(--accent);
   font-size: 0.95rem;
   opacity: 0.9;
+  margin-top: 0.5rem;
 }
 
-/* ===== Top masks ===== */
+/* ===== 关键修复1：让按钮所在的#output居中（适配你的HTML结构） ===== */
+#output {
+  text-align: center; /* 确保按钮在#output内居中 */
+  margin: 1rem 0 2rem; /* 上下间距，与角色区和视频区分开 */
+}
+
+/* 顶部遮罩样式 */
 #masks {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: var(--bar-h);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(10,15,31,0.4), rgba(10,15,31,0));
+  background: linear-gradient(to bottom, rgba(10,15,31,0.4), transparent);
 }
+
 #masksA { width: clamp(90px, 14vw, 180px); }
 #masksB { width: clamp(120px, 18vw, 240px); }
 
-/* ===== Footer moon (hover pause, vertical oscillation on the RIGHT) ===== */
+/* 其他原有样式不变，只修改月亮相关部分 */
+
+/* ===== 月亮样式：5x5cm + 右下角 + 若隐若现 ===== */
 #moon {
   position: fixed;
-  left: 0; right: 0; bottom: 0;
-  height: var(--bar-h);
-  overflow: hidden;
-  display: block;                 /* 由 JS 控制定位，避免 flex 干扰 */
-  padding: 0.25rem 1rem 0.5rem;
-  background: linear-gradient(to top, rgba(10,15,31,0.35), rgba(10,15,31,0));
+  bottom: 0;
+  right: 0;
+  height: auto; /* 取消固定高度限制 */
+  background: none; /* 移除底部渐变背景 */
+  overflow: visible;
 }
 
 #moon1 {
-  position: absolute;
-  right: 12px;                    /* 锚定在右侧 */
-  bottom: 0;                      /* JS 在 bottom 0 ~ range 之间来回动画 */
-  width: clamp(90px, 14vw, 170px);
-  height: auto;
-  cursor: pointer;
-  will-change: bottom, filter;
+  /* 关键1：固定5x5cm尺寸 */
+  width: 5cm;
+  height: 5cm;
+  object-fit: contain; /* 保持图片比例，避免拉伸 */
+  
+  /* 关键2：固定在右下角（距离边缘10px，可调整） */
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  
+  /* 关键3：仅保留若隐若现动画 */
+  opacity: 0.8;
+  animation: fadeInOut 3s ease-in-out infinite;
+  cursor: default; /* 去掉点击指针样式（如果不需要点击） */
 }
 
-#moon:hover #moon1 {
-  filter: brightness(1.2);
+/* 若隐若现动画 */
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.6; } /* 最淡 */
+  50% { opacity: 1; } /* 最清晰 */
 }
 
-/* ===== Video section ===== */
+/* 移除所有月亮的额外装饰（裁剪、hover亮度等） */
+#moon1:hover {
+  filter: none; /* 去掉hover效果 */
+}
+/* 视频区域样式 */
 #video-section {
-  margin-top: 3rem;
+  margin-top: 1rem;
   text-align: center;
 }
+
 .video-hint {
   margin-bottom: 0.5rem;
   color: var(--accent);
   font-size: 0.95rem;
   opacity: 0.9;
 }
+
 #anim {
   width: min(70vw, 640px);
   height: auto;
   border-radius: 12px;
-  display: block;
   margin: 0 auto;
   box-shadow: 0 0 25px rgba(154,223,255,0.3);
   cursor: pointer;
 }
 
-/* ===== Buttons (仅保留给“Switch character images”) ===== */
+/* 切换按钮样式 */
 button {
   background: linear-gradient(135deg, var(--accent), #4bb1ff);
   color: var(--bg1);
   border: none;
   border-radius: 12px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(154, 223, 255, 0.5);
-  transition: all 0.3s ease;
-  display: inline-block;
-  margin: 1rem 0.5rem 0;
+  box-shadow: 0 0 10px rgba(154,223,255,0.5);
+  transition: transform 0.3s ease;
+  margin: 1rem 0 0; /* 与角色区保持距离 */
 }
+
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(154, 223, 255, 0.8);
+  box-shadow: 0 0 20px rgba(154,223,255,0.8);
   background: linear-gradient(135deg, #b0e7ff, var(--accent));
 }
 
-/* ===== Responsive ===== */
+/* 响应式适配 */
 @media (max-width: 480px) {
-  :root { --bar-h: 90px; }
-  .container { margin: calc(var(--bar-h) + 1.25rem) auto calc(var(--bar-h) + 1.25rem); }
+  :root { --bar-h: 80px; }
+  .container { margin: calc(var(--bar-h) + 1rem) auto; }
   #anim { width: 90%; }
 }
